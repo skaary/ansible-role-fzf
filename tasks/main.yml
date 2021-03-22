@@ -1,0 +1,37 @@
+---
+- name: ensure .fzf exists
+  file:
+    path: "{{ fzf_path }}"
+    state: directory
+    mode: 0755
+#    owner: "{{ ansible_user }}"
+#    group: "{{ ansible_user }}"
+
+- name: ensure fzf is cloned
+  git:
+    repo: "{{ fzf_repo }}"
+    dest: "{{ fzf_path }}"
+    depth: 1
+
+- name: set fzf install command generate rc
+  set_fact:
+    fzf_cmd_rc: "{% if fzf_update_rc %}--update-rc{% else %}--no-update-rc{% endif %}"
+  check_mode: false
+
+- name: set fzf install command shell completion
+  set_fact:
+    fzf_cmd_comp: "{% if fzf_completion %}--completion{% else %}--no-completion{% endif %}"
+  check_mode: false
+
+- name: set fzf install command key bindings
+  set_fact:
+    fzf_cmd_key: "{% if fzf_key_bindings %}--key-bindings{% else %}--no-key-bindings{% endif %}"
+  check_mode: false
+
+- name: ensure fzf install script is run
+  command: "{{ fzf_path }}/install --bin"
+  changed_when: false
+
+- name: ensure fzf configure script is run
+  command: "{{ fzf_path }}/install {{ fzf_cmd_rc }} {{ fzf_cmd_comp }} {{ fzf_cmd_key }}"
+  changed_when: false
