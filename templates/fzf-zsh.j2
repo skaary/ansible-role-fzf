@@ -1,0 +1,21 @@
+# Setup fzf
+# ---------
+if [[ ! "$PATH" == *{{ fzf_path_git }}/bin* ]]; then
+  export PATH="${PATH:+${PATH}:}{{ fzf_path_git }}/bin"
+fi
+
+# Auto-completion
+# ---------------
+{% if fzf_completion %}
+[[ $- == *i* ]] && source "{{ fzf_path_git }}/shell/completion.zsh" 2> /dev/null
+{% else %}
+# [[ $- == *i* ]] && source "{{ fzf_path_git }}/shell/completion.zsh" 2> /dev/null
+{% endif %}
+
+# Key bindings
+# ------------
+{% if fzf_key_bindings %}
+source "{{ fzf_path_git }}/shell/key-bindings.zsh"
+{% else %}
+# source "{{ fzf_path_git }}/shell/key-bindings.zsh"
+{% endif %}
