@@ -1,9 +1,26 @@
 ---
+user: "{{ ansible_user_id }}"
+user_home: "{{ ansible_user_dir }}"
+
+# fzf variables
+fzf_path: "{{ user_home }}/.config/fzf"
+fzf_path_git: "{{ fzf_path }}/fzf-git"
+fzf_repo: https://github.com/junegunn/fzf.git
+
 # Add sourcing ~/.fzf.bash to your normal shell config?
 fzf_update_rc: false
-
 # Enable/Disable fuzzy completion (bash & zsh)?
 fzf_completion: false
-
 # Enable/disable key bindings (CTRL-T, CTRL-R, ALT-C)?
 fzf_key_bindings: false
+
+# config variables
+fzf_template: true
+
+fzf_bash: true
+bashrc_location: "{{ user_home }}/.bashrc"
+fzf_bash_location: "{{ fzf_path }}/.fzf.bash"
+
+fzf_zsh: false
+zshrc_location: "{{ user_home }}/.config/zsh/.zshrc"
+fzf_zsh_location: "{{ fzf_path }}/.fzf.zsh"

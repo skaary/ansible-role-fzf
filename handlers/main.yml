@@ -1,1 +1,12 @@
 ---
+- name: add sourcing fzf-zsh to .zshrc
+  lineinfile:
+    path: "{{ zshrc_location }}"
+    line: |
+      [ -f {{ fzf_zsh_location }} ] && source {{ fzf_zsh_location }}
+
+- name: add sourcing fzf-bash to .bashrc
+  lineinfile:
+    line: |
+      [ -f {{ fzf_bash_location }} ] && source {{ fzf_bash_location }}
+    path: "{{ bashrc_location }}"

@@ -1,6 +1,9 @@
 ---
 - name: Converge
   hosts: all
+  vars:
+    - user: molecule
+      user_home: /home/molecule/
 
   pre_tasks:
     - name: Update apt cache.
@@ -12,7 +15,12 @@
           - git
           - curl
           - wget
+          - vim
         state: present
+
+    - name: create test user
+      user:
+        name: molecule
 
   tasks:
     - name: "Include ansible-role-fzf"
