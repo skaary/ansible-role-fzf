@@ -1,4 +1,0 @@
----
-fzf_repo: https://github.com/junegunn/fzf.git
-# fzf_path: "{{ lookup('env','HOME') }}/.fzf/"
-fzf_path: "{{ ansible_env.HOME }}/.fzf/"
