@@ -1,0 +1,28 @@
+---
+- name: put fzf bash config in custom path
+  template:
+    src: fzf-bash.j2
+    dest: "{{ fzf_bash_location }}"
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    mode: "0644"
+  when: fzf_bash
+  notify: add sourcing fzf-bash to .bashrc
+
+# - name: check whether zsh is installed
+#   shell: which zsh
+#   when: rc = 1
+#   register: zsh_bin
+#   changed_when: false
+#   ignore_errors: true
+
+- name: put fzf zsh config in custom path
+  template:
+    src: fzf-zsh.j2
+    dest: "{{ fzf_zsh_location }}"
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    mode: "0644"
+  when: fzf_zsh
+  # when: fzf_zsh and zsh_bin
+  notify: add sourcing fzf-zsh to .zshrc
